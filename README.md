@@ -231,11 +231,6 @@ history = model.fit(
         callbacks = callbacks_list
 )
 ```
-Смотрим значение метрики:
-```python
-scores = model.evaluate(test_generator, steps=len(test_generator), verbose=1)
-print("Accuracy: %.2f%%" % (scores[1]*100))
-```
 Test Time Augmentation (TTA) немного улучшает результат финального предсказания:
 ```python
 test_sub_generator.reset()
@@ -254,7 +249,7 @@ label_map = (train_generator.class_indices)
 label_map = dict((v,k) for k,v in label_map.items()) #flip k,v
 predictions = [label_map[k] for k in predictions]
 ```
-И сохраняем наш сабмит и скачиваем его из ВМ:
+Сохраняем наш сабмит и скачиваем его из ВМ:
 ```python
 filenames_with_dir=test_sub_generator.filenames
 submission = pd.DataFrame({'Id':filenames_with_dir, 'Category':predictions}, columns=['Id', 'Category'])
@@ -265,3 +260,4 @@ print('Save submit')
 ```python
 files.download('submission.csv') 
 ```
+Финальная accuracy на kaggle:0.95745
